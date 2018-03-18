@@ -1,0 +1,6 @@
+#Remove index.php
+RewriteEngine On
+RewriteBase /php-mvc/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]
