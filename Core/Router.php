@@ -14,7 +14,12 @@ class Router
      * @var array
      */
     protected $routes = [];
-
+    /**
+     * Parameters
+     *
+     * @var array
+     */
+    protected $params = [];
     /**
      * Undocumented function
      *
@@ -34,5 +39,45 @@ class Router
     public function getRoutes()
     {
         return $this->routes;
+    }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $url
+     * @return boolean
+     */
+    public function match($url)
+    {
+        // foreach ($this->routes as $route => $params) {
+        //     if ($url == $route) {
+        //         $this->params = $params;
+        //         return true;
+        //     }
+        // }
+        // return false;
+          
+        $regex = "/^(?P<controller>[a-z-]+)\/(?P<action>[a-z-]+)$/";
+        if (preg_match($regex, $url, $matches)) {
+          
+          
+          $params = [];
+          foreach($matches as $key => $match) {
+            if (is_string($match)){
+              $params[$key] = $match;
+            }
+          }
+          $this->params = $params;
+          return true;
+        }
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
     }
 }

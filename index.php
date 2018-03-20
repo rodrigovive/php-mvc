@@ -7,4 +7,24 @@ error_reporting(E_ALL);
 
 // echo "." . $_SERVER["QUERY_STRING"];
 
-require '../Core/Router.php';
+require 'Core/Router.php';
+
+$router = new Router();
+
+$router->add('', ['controller' => 'Home', 'action' => 'index']);
+$router->add('posts', ['controller' => 'Posts', 'action' => 'index']);
+
+echo '<pre> </pre>';
+var_dump($router->getRoutes());
+
+//Match the requested route
+
+$url = $_SERVER['QUERY_STRING'];
+
+if ($router->match($url)) {
+    echo '<pre>';
+    var_dump($router->getParams());
+    echo '</pre>';
+} else {
+    echo "No route Found for URL '$url'";
+}
